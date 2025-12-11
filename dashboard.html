@@ -1,0 +1,128 @@
+<?php
+session_start();
+require "../config/koneksi.php";
+
+if (!isset($_SESSION['admin'])) {
+    header('location: login.php');
+    exit();
+}
+
+if (isset($_POST['tambah'])) {
+    $nama   = $_POST['nama'];
+    $desk   = $_POST['deskripsi'];
+    $harga  = $_POST['harga'];
+
+    $namaFile = $_FILES['gambar']['name'];
+    $tmpFile  = $_FILES['gambar']['tmp_name'];
+    $folder   = "../assets/img_kopi/";
+
+    move_uploaded_file($tmpFile, $folder . $namaFile);
+
+    $query = mysqli_query($koneksi, "INSERT INTO kopi VALUES(
+        NULL, '$nama', '$desk', '$harga', '$namaFile'
+    )");
+
+    if ($query) {
+        echo "<script>alert('Data kopi berhasil ditambahkan!');</script>";
+    } else {
+        echo "<script>alert('Gagal menambahkan data!');</script>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .card-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .card{
+            width: 220px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .card img{
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .card-body{
+            padding: 10px;
+        }
+        .card-body h3{
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="dashboard.php">Admin Panel</a>
+        <div class="collapse navbar-collapse" id="adminNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="data-kopi.php">Data Kopi</a></li>
+                <li class="nav-item"><a class="nav-link" href="data-pemesanan.php">Data Pemesanan</a></li>
+                <li class="nav-item"><a class="nav-link" href="laporan.php">Laporan</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h2>Tambah Kopi Baru</h2>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label>Nama Kopi</label><br>
+        <input type="text" name="nama" required><br><br>
+
+        <label>Deskripsi</label><br>
+        <textarea name="deskripsi" required></textarea><br><br>
+
+        <label>Harga</label><br>
+        <input type="number" name="harga" required><br><br>
+
+        <label>Upload Gambar</label><br>
+        <input type="file" name="gambar" required><br><br>
+
+        <button type="submit" name="tambah">Tambah Kopi</button>
+    </form>
+
+    <hr>
+
+    <h2>Daftar Kopi</h2>
+
+    <div class="card-container">
+        <?php
+        $data = mysqli_query($koneksi, "SELECT * FROM kopi ORDER BY id DESC");
+        while ($row = mysqli_fetch_assoc($data)) {
+        ?>
+            <div class="card">
+                <img src="../assets/img_kopi/<?php echo $row['gambar']; ?>">
+                <div class="card-body">
+                    <h3><?php echo $row['nama_kopi']; ?></h3>
+                    <p><?php echo $row['deskripsi']; ?></p>
+                    <p><b>Rp <?php echo number_format($row['harga']); ?></b></p>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+
+</div>
+
+</body>
+</html>
