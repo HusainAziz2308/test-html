@@ -1,0 +1,135 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #4b3832;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.user-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 5px;
+}
+
+.sidebar nav a:hover {
+    background-color: #be9b7b;
+    color: white;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container-profile {
+    max-width: 600px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: #4b3832;
+    border-bottom: 2px solid #be9b7b;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input[readonly] {
+    background-color: #f1f1f1;
+    cursor: not-allowed;
+}
+
+input:focus {
+    border-color: #be9b7b;
+    outline: none;
+    box-shadow: 0 0 5px rgba(190, 155, 123, 0.5);
+}
+
+/* Button & Alert */
+button[name="update"] {
+    background-color: #4b3832;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+}
+
+button[name="update"]:hover {
+    background-color: #3c2a24;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
